@@ -1,0 +1,1 @@
+const dictionary = require("./dictionary.json");

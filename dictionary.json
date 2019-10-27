@@ -1,0 +1,45 @@
+{
+    "roots": [
+        "brachi",
+        "cardi",
+        "cyt",
+        "dermat",
+        "encephal",
+        "gastro",
+        "hemat",
+        "hist",
+        "intestin",
+        "lapar",
+        "my",
+        "neur",
+        "ocul",
+        "ophthalm",
+        "or",
+        "ot",
+        "pulmon",
+        "pneumon",
+        "nephr",
+        "nephrolithi",
+        "lymph",
+        "palat",
+        "nas",
+        "dent",
+        "ling",
+        "ankyl",
+        "gloss"
+    ],
+    "prefixes": [
+        "ecto",
+        "endo",
+        "epi"
+    ],
+    "suffixes": [
+        "algia",
+        "emia",
+        "itis",
+        "lysis",
+        "opathy",
+        "pnea",
+        "emesis"
+    ]
+}
