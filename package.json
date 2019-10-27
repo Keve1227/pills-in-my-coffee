@@ -1,0 +1,19 @@
+{
+  "name": "pills-in-my-coffee",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Keve1227/pills-in-my-coffee.git"
+  },
+  "author": "Kevin Sundqvist Norlén",
+  "license": "LGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Keve1227/pills-in-my-coffee/issues"
+  },
+  "homepage": "https://github.com/Keve1227/pills-in-my-coffee#readme"
+}
