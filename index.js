@@ -32,12 +32,14 @@ exports.composeWord = function (root, suffix, prefix) {
         root += 'o';
     }
     
-    if (root[root.length - 1] === suffix[0]) {
+    if (root[root.length - 1] === suffix[0] && startsWithVowel(suffix)) {
         suffix = suffix.substr(1);
+    } else if (endsWithVowel(root) && startsWithVowel(suffix)) {
+        root = root.substr(0, root.length - 1);
     }
 
     if (prefix) {
-        if (prefix[prefix.length - 1] === root[0]) {
+        if (prefix[prefix.length - 1] === root[0] && startsWithVowel(root)) {
             prefix += '-';
         } else if (endsWithVowel(prefix) && startsWithVowel(root)) {
             prefix = prefix.substr(0, prefix.length - 1);
