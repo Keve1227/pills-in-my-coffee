@@ -3,8 +3,8 @@ const dictionary = require("./dictionary.json");
 let hash = 0;
 
 let random = function () {
-    for (let i = 0; i < 1 + hash % 32; i++) {
-        hash += 0x5df2e9;
+    for (let i = 0; i < 32; i++) {
+        hash += 0x5df2e8;
         hash *= 0x41a7;
         hash %= 0x7ffffffe;
         if (hash < 0) hash += 0x7ffffffe;
