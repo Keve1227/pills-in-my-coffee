@@ -1,13 +1,34 @@
 const dictionary = require("./dictionary.json");
 
-let startsWithVowel = function (str) {
-    if (!startsWithVowel || startsWithVowel.length < 1) return true;
+let hash = 0;
 
-    return str.match(/.*[aeiou]$/i);
+let random = function () {
+    for (let i = 0; i < 1 + hash % 32; i++) {
+        hash += 0x5df2e9;
+        hash *= 0x41a7;
+        hash %= 0x7ffffffe;
+        if (hash < 0) hash += 0x7ffffffe;
+    }
+
+    return hash / 0x7ffffffd;
 }
 
+let startsWithVowel = function (str) {
+    if (!str || str.length < 1) return true;
+
+    return "aeiou".includes(str[0]);
+}
+
+let endsWithVowel = function (str) {
+    if (!str || str.length < 1) return false;
+
+    return "aeiou".includes(str[str.length - 1]);
+}
+
+/* Exports */
+
 exports.composeWord = function (root, suffix, prefix) {
-    if (startsWithVowel(suffix)) {
+    if (!startsWithVowel(suffix)) {
         root += 'o';
     }
     
@@ -15,9 +36,29 @@ exports.composeWord = function (root, suffix, prefix) {
         suffix = suffix.substr(1);
     }
 
-    if (prefix && prefix[prefix.length - 1] === root[0]) {
-        prefix += '-';
+    if (prefix) {
+        if (prefix[prefix.length - 1] === root[0]) {
+            prefix += '-';
+        } else if (endsWithVowel(prefix) && startsWithVowel(root)) {
+            prefix = prefix.substr(0, prefix.length - 1);
+        }
     }
 
     return (prefix ? prefix : "") + root + suffix;
+}
+
+exports.setSeed = function (seed) {
+    hash = seed;
+}
+
+exports.randomRoot = function () {
+    return dictionary.roots[Math.floor(dictionary.roots.length * random())];
+}
+
+exports.randomSuffix = function () {
+    return dictionary.suffixes[Math.floor(dictionary.suffixes.length * random())];
+}
+
+exports.randomPrefix = function () {
+    return dictionary.prefixes[Math.floor(dictionary.prefixes.length * random())];
 }
