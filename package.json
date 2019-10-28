@@ -1,7 +1,7 @@
 {
   "name": "pills-in-my-coffee",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.1.0",
+  "description": "Generates agglutinative names for imaginative illnesses.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
