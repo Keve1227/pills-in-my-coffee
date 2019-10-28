@@ -44,10 +44,12 @@ exports.composeWord = function (root, suffix, prefix) {
     }
 
     if (prefix) {
-        if (prefix[prefix.length - 1] === root[0] && startsWithVowel(root)) {
+        if (prefix[prefix.length - 1] === 'o' && root[0] === 'o') {
             prefix += '-';
-        } else if (endsWithVowel(prefix) && startsWithVowel(root)) {
-            prefix += '-';
+        } else if (prefix[prefix.length - 1] === root[0] && startsWithVowel(root)) {
+            if (prefix[prefix.length - 1] !== 'o') {
+                prefix += 'o';
+            }
         }
     }
 
