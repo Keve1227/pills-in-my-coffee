@@ -28,17 +28,25 @@ let endsWithVowel = function (str) {
 /* Exports */
 
 exports.composeWord = function (root, suffix, prefix) {
-    if (root[root.length - 1] === suffix[0] && startsWithVowel(suffix)) {
-        suffix = suffix.substr(1);
-    } else if (endsWithVowel(root) && startsWithVowel(suffix) && suffix[0] !== 'e') {
-        root = root.substr(0, root.length - 1);
+    while (true) {
+        if (root[root.length - 1] === suffix[0] && startsWithVowel(suffix)) {
+            suffix = suffix.substr(1);
+        } else if (endsWithVowel(root) && startsWithVowel(suffix)) {
+            root = root.substr(0, root.length - 1);
+        } else {
+            break;
+        }
     }
 
     if (prefix) {
-        if (prefix[prefix.length - 1] === root[0] && startsWithVowel(root)) {
-            prefix += '-';
-        } else if (endsWithVowel(prefix) && startsWithVowel(root) && root[0] !== 'e') {
-            prefix = prefix.substr(0, prefix.length - 1);
+        while (true) {
+            if (prefix[prefix.length - 1] === root[0] && startsWithVowel(root)) {
+                prefix += '-';
+            } else if (endsWithVowel(prefix) && startsWithVowel(root)) {
+                prefix += '-';
+            } else {
+                break;
+            }
         }
     }
 
