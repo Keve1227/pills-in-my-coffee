@@ -1,21 +1,36 @@
 const dictionary = require("./dictionary.json");
 
-let x = 0, w = 0, s = 0xb5ad4ece;
+let randomState = {
+    a: Math.floor(Math.random() * 0xffffffff),
+    b: Math.floor(Math.random() * 0xffffffff),
+    c: Math.floor(Math.random() * 0xffffffff),
+    d: Math.floor(Math.random() * 0xffffffff),
+    counter: 0
+}
 
 let random = function () {
-    for (let i = 0; i < 128; i++) {
-        w += s;
-        w &= 0xffffffff;
+    let t;
 
-        x *= x;
-        x += w;
-        x &= 0xffffffff;
+    for (let i = 0; i < 13; i++) {
+        t = randomState.d;
+        let s = randomState.a;
+    
+        randomState.d = randomState.c;
+        randomState.c = randomState.b;
+        randomState.b = s;
+    
+        t ^= t >> 2;
+        t ^= (t << 1) & 0xffffffff;
+        t ^= s ^ ((s << 4) & 0xffffffff);
+        randomState.a = t;
     }
+    
+    randomState.counter += 362437;
 
-    let rand = (x >> 16) + (x << 16);
-    if (rand < 0) rand += 0xffffffff;
+    let rand = Math.abs(((t + randomState.counter) & 0xffffffff) / 0x7f7f7f7f);
+    if (rand > 1) rand = 2 - rand;
 
-    return rand / 0xffffffff;
+    return rand;
 }
 
 let startsWithVowel = function (str) {
@@ -44,11 +59,13 @@ exports.composeWord = function (root, suffix, prefix) {
     }
 
     if (prefix) {
-        if (prefix[prefix.length - 1] === 'o' && root[0] === 'o') {
+        if (prefix[prefix.length - 1] === 'o' && root[0] === 'o' && !prefix.endsWith("io")) {
             prefix += '-';
         } else if (prefix[prefix.length - 1] === root[0] && startsWithVowel(root)) {
             if (prefix[prefix.length - 1] !== 'o') {
                 prefix += 'o';
+            } else {
+                prefix = prefix.substr(0, prefix.length - 1);
             }
         }
     }
@@ -57,7 +74,12 @@ exports.composeWord = function (root, suffix, prefix) {
 }
 
 exports.setSeed = function (seed) {
-    s = seed;
+    randomState.counter = 0;
+
+    randomState.a = seed;
+    randomState.b = seed;
+    randomState.c = seed;
+    randomState.d = seed;
 }
 
 exports.randomRoot = function () {
